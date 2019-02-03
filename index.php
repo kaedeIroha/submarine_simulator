@@ -12,6 +12,12 @@ require 'controller.php';
 $index = new indexController();
 
 $output_data = $index->index();
+
+$color_set['シャーク'] = "class='text-danger'";
+$color_set['ウンキウ'] = "class='text-secondary'";
+$color_set['ホエール'] = "class='text-primary'";
+$color_set['シーラカンス'] = "class='text-success'";
+$color_set['シルドラ'] = "class='text-info'";
 ?>
 
 <html>
@@ -29,36 +35,53 @@ $output_data = $index->index();
     <div class="row">
         <form action="index.php" method="post">
             <div class="form-inline">
-                <input type="text" class="form-control mx-2" name="search" placeholder="探索">
-                <input type="text" class="form-control mx-2" name="collection" placeholder="収集">
-                <input type="text" class="form-control mx-2" name="speed" placeholder="巡航速度">
-                <input type="text" class="form-control mx-2" name="cruising_distance" placeholder="航続距離">
-                <input type="text" class="form-control mx-2" name="luck" placeholder="運">
+                <input type="text" class="form-control form-control-sm mx-2" value="<?php echo $_POST['search']; ?>" name="search" placeholder="探索">
+                <input type="text" class="form-control form-control-sm mx-2" value="<?php echo $_POST['collection']; ?>" name="collection" placeholder="収集">
+                <input type="text" class="form-control form-control-sm mx-2" value="<?php echo $_POST['speed']; ?>" name="speed" placeholder="巡航速度">
+                <input type="text" class="form-control form-control-sm mx-2" value="<?php echo $_POST['cruising_distance']; ?>" name="cruising_distance" placeholder="航続距離">
+                <input type="text" class="form-control form-control-sm mx-2" value="<?php echo $_POST['luck']; ?>" name="luck" placeholder="運">
             </div>
             <button type="submit" class="btn btn-primary m-2">Submit</button>
         </form>
 
         <div class="container-fluid">
-            <table class="table table-striped">
+            <table class="table table-sm table-striped">
                 <thead>
                 <tr>
-                    <th>組み合わせ</th>
-                    <th>探索</th>
-                    <th>収集</th>
-                    <th>巡航速度</th>
-                    <th>航続距離</th>
-                    <th>運</th>
+                    <th colspan="4">組み合わせ</th>
+                    <th rowspan="2">探索</th>
+                    <th rowspan="2">収集</th>
+                    <th rowspan="2">巡航速度</th>
+                    <th rowspan="2">航続距離</th>
+                    <th rowspan="2">運</th>
+                    <th rowspan="2">合計</th>
+                </tr>
+                <tr>
+                    <th>艦体</th>
+                    <th>艦首</th>
+                    <th>艦尾</th>
+                    <th>艦橋</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($output_data as $key => $val) { ?>
+                    <?php
+                    $body_color = $color_set[$val['艦体']];
+                    $front_color = $color_set[$val['艦首']];
+                    $tail_color = $color_set[$val['艦尾']];
+                    $bridge_color = $color_set[$val['艦橋']];
+                    ?>
                     <tr>
-                        <td><?php echo $key; ?></td>
+                        <td <?php echo $body_color; ?>><?php echo $val['艦体']; ?></td>
+                        <td <?php echo $front_color; ?>><?php echo $val['艦首']; ?></td>
+                        <td <?php echo $tail_color; ?>><?php echo $val['艦尾']; ?></td>
+                        <td <?php echo $bridge_color; ?>><?php echo $val['艦橋']; ?></td>
                         <td><?php echo $val['探査']; ?></td>
                         <td><?php echo $val['収集']; ?></td>
                         <td><?php echo $val['巡航速度']; ?></td>
                         <td><?php echo $val['航続距離']; ?></td>
                         <td><?php echo $val['運']; ?></td>
+                        <td><?php echo $val['合計']; ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>

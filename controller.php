@@ -34,11 +34,16 @@ class indexController
                 foreach ($submarine_tail_data as $tail_name => $submarine_tail_val) {
                     foreach ($submarine_bridge_data as $bridge_name => $submarine_bridge_val) {
                         $key = $base_name . '+' . $front_name . '+' . $tail_name . '+' . $bridge_name;
+                        $base[$key]['艦体'] = $base_name;
+                        $base[$key]['艦首'] = $front_name;
+                        $base[$key]['艦尾'] = $tail_name;
+                        $base[$key]['艦橋'] = $bridge_name;
                         $base[$key]['探査'] = $submarine_body_val[0] + $submarine_front_val[0] + $submarine_tail_val[0] + $submarine_bridge_val[0];
                         $base[$key]['収集'] = $submarine_body_val[1] + $submarine_front_val[1] + $submarine_tail_val[1] + $submarine_bridge_val[1];
                         $base[$key]['巡航速度'] = $submarine_body_val[2] + $submarine_front_val[2] + $submarine_tail_val[2] + $submarine_bridge_val[2];
                         $base[$key]['航続距離'] = $submarine_body_val[3] + $submarine_front_val[3] + $submarine_tail_val[3] + $submarine_bridge_val[3];
                         $base[$key]['運'] = $submarine_body_val[4] + $submarine_front_val[4] + $submarine_tail_val[4] + $submarine_bridge_val[4];
+                        $base[$key]['合計'] = $base[$key]['探査'] + $base[$key]['収集'] + $base[$key]['巡航速度'] + $base[$key]['運'];
                     }
                 }
             }
