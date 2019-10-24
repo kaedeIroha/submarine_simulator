@@ -58,12 +58,12 @@ $color_set['シルドラ'] = "class='text-info'";
                 </tr>
                 <tr>
                     <th>艦体</th>
-                    <th>艦首</th>
                     <th>艦尾</th>
+                    <th>艦首</th>
                     <th>艦橋</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="">
                 <?php foreach ($output_data as $key => $val) { ?>
                     <?php
                     $body_color = $color_set[$val['艦体']];
@@ -73,8 +73,8 @@ $color_set['シルドラ'] = "class='text-info'";
                     ?>
                     <tr>
                         <td <?php echo $body_color; ?>><?php echo $val['艦体']; ?></td>
-                        <td <?php echo $front_color; ?>><?php echo $val['艦首']; ?></td>
                         <td <?php echo $tail_color; ?>><?php echo $val['艦尾']; ?></td>
+                        <td <?php echo $front_color; ?>><?php echo $val['艦首']; ?></td>
                         <td <?php echo $bridge_color; ?>><?php echo $val['艦橋']; ?></td>
                         <td><?php echo $val['探査']; ?></td>
                         <td><?php echo $val['収集']; ?></td>
