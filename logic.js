@@ -76,22 +76,40 @@ function setColor(name) {
     return color;
 }
 
+function createList(search = 0, collection = 0, speed = 0, cruising_distance = 0, luck = 0) {
+    $('#list-body').find('tr').remove();
+    Object.keys(submarine_data).forEach(function (name, key) {
+        if (submarine_data[name].探査 >= search && submarine_data[name].収集 >= collection && submarine_data[name].巡航速度 >= speed && submarine_data[name].航続距離 >= cruising_distance && submarine_data[name].運 >= luck) {
+            line = '<tr>';
+            line += '<td class="' + setColor(submarine_data[name].艦体) + '">' + submarine_data[name].艦体 + '</td>';
+            line += '<td class="' + setColor(submarine_data[name].艦尾) + '">' + submarine_data[name].艦尾 + '</td>';
+            line += '<td class="' + setColor(submarine_data[name].艦首) + '">' + submarine_data[name].艦首 + '</td>';
+            line += '<td class="' + setColor(submarine_data[name].艦橋) + '">' + submarine_data[name].艦橋 + '</td>';
+            line += '<td class="">' + submarine_data[name].探査 + '</td>';
+            line += '<td class="">' + submarine_data[name].収集 + '</td>';
+            line += '<td class="">' + submarine_data[name].巡航速度 + '</td>';
+            line += '<td class="">' + submarine_data[name].航続距離 + '</td>';
+            line += '<td class="">' + submarine_data[name].運 + '</td>';
+            line += '<td class="">' + submarine_data[name].合計 + '</td>';
+            line += '</tr>';
+            $('#list-body').append(line).hide().fadeIn();
+        }
+    });
+
+}
+
 
 $(function () {
-    Object.keys(submarine_data).forEach(function (name, key) {
-        line = '<tr>';
-        //line += '<td>' + name + '</td>';
-        line += '<td class="' + setColor(submarine_data[name].艦体) + '">' + submarine_data[name].艦体 + '</td>';
-        line += '<td class="' + setColor(submarine_data[name].艦尾) + '">' + submarine_data[name].艦尾 + '</td>';
-        line += '<td class="' + setColor(submarine_data[name].艦首) + '">' + submarine_data[name].艦首 + '</td>';
-        line += '<td class="' + setColor(submarine_data[name].艦橋) + '">' + submarine_data[name].艦橋 + '</td>';
-        line += '<td class="">' + submarine_data[name].探査 + '</td>';
-        line += '<td class="">' + submarine_data[name].収集 + '</td>';
-        line += '<td class="">' + submarine_data[name].巡航速度 + '</td>';
-        line += '<td class="">' + submarine_data[name].航続距離 + '</td>';
-        line += '<td class="">' + submarine_data[name].運 + '</td>';
-        line += '<td class="">' + submarine_data[name].合計 + '</td>';
-        line += '</tr>';
-        $('#list-body').append(line);
+    createList();
+
+    $('#run').on('click', function () {
+        var search = $('input[name="search"]').val();
+        var collection = $('input[name="collection"]').val();
+        var speed = $('input[name="speed"]').val();
+        var cruising_distance = $('input[name="cruising_distance"]').val();
+        var luck = $('input[name="luck"]').val();
+
+        createList(search, collection, speed, cruising_distance, luck);
     });
+
 });
